@@ -1,0 +1,36 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# Archivos de configuración del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de logs
+logs/
+*.log
+
+# Archivos de build
+dist/
+build/
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Archivos de IDEs y editores de código
+.vscode/
+.idea/
+
+# Archivos de prueba (si los tienes)
+coverage/
+
+
+ 

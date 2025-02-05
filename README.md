@@ -43,6 +43,13 @@ GET /: Solo para chequear que todo esté funcionando.
 POST /api/mocks/:users/:products: Crea un número determinado de usuarios y productos en la base de datos.
 GET /api/mocks: Devuelve todos los usuarios y productos que se crearon.
 
+Con el http://localhost:8080/api/mocks: 
+
+ Ver todos los productos y usuarios creados 
+
+
+
+
 
 Conexión con MongoDB:  
 
@@ -50,6 +57,3 @@ La app guarda los datos en MongoDB.
 Asegúrate de tener la base de datos configurada correctamente. 
 Usa la variable de entorno MONGO_URI en tu archivo .env para la conexión.
 
-Con el http://localhost:8080/api/mocks: 
-
- Ver todos los productos y usuarios creados 

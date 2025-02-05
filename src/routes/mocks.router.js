@@ -2,9 +2,17 @@ import express from 'express';
 import { generateUsers, generateProducts } from '../utils/mocking.js';
 import User from '../models/User.js';
 import Product from '../models/Product.js';
-import logger from '../utils/logger.js';  
+import logger from '../utils/logger.js';
 
 const router = express.Router();
+
+const validateParams = (req, res, next) => {
+    const { users, products } = req.params;
+    if (isNaN(users) || isNaN(products)) {
+        return res.status(400).json({ message: "Los parámetros deben ser números." });
+    }
+    next();
+};
 
 router.post('/:users/:products', async (req, res) => {
     try {
@@ -29,10 +37,29 @@ router.post('/:users/:products', async (req, res) => {
     }
 });
 
+router.get('/:users/:products', validateParams, async (req, res) => {
+    try {
+        const numUsers = parseInt(req.params.users);
+        const numProducts = parseInt(req.params.products);
+
+        logger.info(`Obteniendo ${numUsers} usuarios y ${numProducts} productos...`);
+
+        const users = await User.find().limit(numUsers);
+        const products = await Product.find().limit(numProducts);
+
+        logger.info(`Datos obtenidos: ${users.length} usuarios y ${products.length} productos`);
+
+        res.json({ users, products });
+    } catch (error) {
+        logger.error(`Error al obtener los datos: ${error.message}`);
+        res.status(500).json({ message: "Error al obtener los datos", error: error.message });
+    }
+});
+
 router.get('/', async (req, res) => {
     try {
-        const users = await User.find();      
-        const products = await Product.find(); 
+        const users = await User.find();
+        const products = await Product.find();
 
         logger.info('Datos obtenidos correctamente desde la base de datos.');
 

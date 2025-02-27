@@ -57,3 +57,7 @@ La app guarda los datos en MongoDB.
 Asegúrate de tener la base de datos configurada correctamente. 
 Usa la variable de entorno MONGO_URI en tu archivo .env para la conexión.
 
+Resumen:
+npm start: Inicia la aplicación (servidor Express).
+npm test: Ejecuta las pruebas (test unitarios o de integración).
+Si lo que deseas es correr tu servidor, usas npm start. Si necesitas probar tu código (es decir, ejecutar las pruebas), usas npm test.

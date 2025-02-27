@@ -1,12 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
-import cors from "cors";
-import config from "./config/config.js";
+import dotenv from "dotenv";
 import mocksRouter from "./routes/mocks.router.js";
-import logger from "./utils/logger.js";
+import logger from "./utils/logger.js"; 
+import { swaggerUi, swaggerSpecs } from "./docs/swagger.js"; 
+
+dotenv.config();
 
 const app = express();
-app.use(cors());
 app.use(express.json());
 
 
@@ -16,16 +17,23 @@ app.use((req, res, next) => {
 });
 
 
- app.use("/api/mocks", mocksRouter);
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    logger.info("✅ Conectado a MongoDB");
 
 
- mongoose
-  .connect(config.mongoURI)
-  .then(() => logger.info(`✅ Conectado a MongoDB en modo ${config.nodeEnv}`))
-  .catch((err) => logger.error(`❌ Error al conectar a la base de datos: ${err.message}`));
+    app.use("/api/mocks", mocksRouter);
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs)); 
 
 
-  const port = config.port;
-app.listen(port, () => {
-  logger.info(`🚀 Servidor corriendo en el puerto ${port} en modo ${config.nodeEnv}`);
-});
+    const PORT = process.env.PORT || 8080;
+    app.listen(PORT, () => {
+      logger.info(`🚀 API corriendo en http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    logger.error(`❌ Error al conectar a MongoDB: ${err.message}`);
+  });
+
+export default app;

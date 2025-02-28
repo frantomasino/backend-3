@@ -15,6 +15,9 @@ app.use((req, res, next) => {
   logger.http(`📢 ${req.method} ${req.url}`);
   next();
 });
+app.get("/", (req, res) => {
+  res.send("🚀 ¡Bienvenido a mi API! Usa /api/mocks para ver los datos.");
+});
 
 
 mongoose

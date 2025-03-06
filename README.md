@@ -51,3 +51,8 @@ GET /: Solo para chequear que todo esté funcionando.
 POST /api/mocks/:users/:products: Crea un número determinado de usuarios y productos en la base de datos.
 GET /api/mocks: Devuelve todos los usuarios y productos que se crearon.
 DELETE /api/mocks: Elimina todos los usuarios.
+
+
+ ## Railway 
+     Para que te traiga todo los productos es 
+     https://backend-3-production.up.railway.app/api/mocks 
